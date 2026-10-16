@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WhatsApp Kece Web</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #111b21;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Bar / Header Kece */
+        .app-header {
+            height: 56px;
+            background: linear-gradient(135deg, #00a884 0%, #005c4b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            user-select: none;
+        }
+
+        .header-title-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Live Animated Green Bubble Effect */
+        .bubble-wrapper {
+            position: relative;
+            width: 14dp;
+            height: 14dp;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bubble-core {
+            width: 12px;
+            height: 12px;
+            background-color: #25d366;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #25d366, 0 0 20px #25d366;
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                transform: scale(0.9);
+                box-shadow: 0 0 6px #25d366;
+            }
+            50% {
+                transform: scale(1.25);
+                box-shadow: 0 0 16px #25d366, 0 0 25px #25d366;
+            }
+            100% {
+                transform: scale(0.9);
+                box-shadow: 0 0 6px #25d366;
+            }
+        }
+
+        .header-title {
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-icon {
+            background: rgba(255, 255, 255, 0.12);
+            border: none;
+            color: #ffffff;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn-icon:active {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0.92);
+        }
+
+        .btn-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: #ffffff;
+        }
+
+        /* Container Frame */
+        .content-frame {
+            flex: 1;
+            width: 100%;
+            position: relative;
+            background: #0b141a;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* Floating Info Badge */
+        .info-badge {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(11, 20, 26, 0.9);
+            color: #00a884;
+            border: 1px solid rgba(0, 168, 132, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            pointer-events: none;
+            z-index: 50;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-badge span {
+            width: 6px;
+            height: 6px;
+            background: #25d366;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header UI Kece dengan Gelembung Interaktif -->
+    <header class="app-header">
+        <div class="header-title-container">
+            <div class="bubble-wrapper">
+                <div class="bubble-core"></div>
+            </div>
+            <div class="header-title">WhatsApp Web</div>
+        </div>
+
+        <div class="header-actions">
+            <!-- Tombol Reload / Refresh -->
+            <button class="btn-icon" onclick="refreshApp()" title="Muat Ulang">
+                <svg viewBox="0 0 24 24">
+                    <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Konten WebView / Embedded Frame -->
+    <main class="content-frame">
+        <iframe id="waFrame" src="https://web.whatsapp.com" allow="camera; microphone; clipboard-read; clipboard-write;"></iframe>
+        <div class="info-badge">
+            <span></span> Mode Tautkan Kode 8 Digit / Scan QR
+        </div>
+    </main>
+
+    <script>
+        function refreshApp() {
+            var frame = document.getElementById('waFrame');
+            frame.src = frame.src;
+        }
+    </script>
+</body>
+</html>
